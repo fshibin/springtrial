@@ -1,10 +1,10 @@
-package com.thefans.configserver;
+package com.thefans.adminserver;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
-class ConfigserverApplicationTests {
+class AdminServerApplicationTests {
 
 	@Test
 	void contextLoads() {

@@ -9,49 +9,34 @@
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>com.thefans</groupId>
-	<artifactId>ecommerce</artifactId>
+	<artifactId>zipkinserver</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>ecommerce</name>
-	<description>E-commerce project for Spring Boot</description>
+	<name>zipkinserver</name>
+	<description>Demo project for Spring Boot</description>
 	<properties>
 		<java.version>1.8</java.version>
-                <spring-cloud.version>2020.0.3</spring-cloud.version>
 	</properties>
 	<dependencies>
-                <dependency>
-                        <groupId>org.springframework.boot</groupId>
-                        <artifactId>spring-boot-starter-thymeleaf</artifactId>
-                </dependency>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-web</artifactId>
 		</dependency>
-		<!--dependency>
-			<groupId>org.springframework.cloud</groupId>
-			<artifactId>spring-cloud-starter-netflix-eureka-client</artifactId>
-		</dependency-->
-                <dependency>
-                        <groupId>org.springframework.boot</groupId>
-                        <artifactId>spring-boot-starter-actuator</artifactId>
-                </dependency>
+        <dependency>
+            <groupId>io.zipkin</groupId>
+            <artifactId>zipkin-server</artifactId>
+            <version>2.23.2</version>
+        </dependency>
+        <!--dependency>
+            <groupId>io.zipkin.java</groupId>
+            <artifactId>zipkin-autoconfigure-ui</artifactId>
+            <version>2.12.9</version>
+        </dependency-->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-test</artifactId>
 			<scope>test</scope>
 		</dependency>
 	</dependencies>
-	<dependencyManagement>
-		<dependencies>
-			<dependency>
-				<groupId>org.springframework.cloud</groupId>
-				<artifactId>spring-cloud-dependencies</artifactId>
-				<version>${spring-cloud.version}</version>
-				<type>pom</type>
-				<scope>import</scope>
-			</dependency>
-		</dependencies>
-	</dependencyManagement>
-
 
 	<build>
 		<plugins>
