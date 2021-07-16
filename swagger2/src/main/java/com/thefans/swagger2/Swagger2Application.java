@@ -13,12 +13,15 @@ import org.springframework.web.bind.annotation.RestController;
 import springfox.documentation.builders.RequestHandlerSelectors;
 import springfox.documentation.spi.DocumentationType;
 import springfox.documentation.spring.web.plugins.Docket;
+import org.springframework.cloud.sleuth.metric.SpanMetricReporter;
+import org.springframework.cloud.sleuth.zipkin2.ZipkinProperties;
+import org.springframework.cloud.sleuth.zipkin2.ZipkinSpanReporter;
 
 @EnableSwagger2
 @RestController
 @SpringBootApplication
 public class Swagger2Application {
-   private static final Logger LOG = Logger.getLogger(Swagger2Application.class.getName());
+    private static final Logger LOG = Logger.getLogger(Swagger2Application.class.getName());
 
     public static void main(String[] args) {
         SpringApplication.run(Swagger2Application.class, args);
@@ -30,11 +33,37 @@ public class Swagger2Application {
             .apis(RequestHandlerSelectors.basePackage(
                 "com.thefans.swagger2"
             )).build();
-   }
+    }
 
-   @RequestMapping("/")
-   public String index() {
-      LOG.log(Level.INFO, "Index API is calling");
-      return "Welcome Sleuth!";
-   }
+    @RequestMapping("/")
+    public String index() {
+        LOG.log(Level.INFO, "Index API is calling");
+        return "Welcome Sleuth!";
+    }
+
+    @Autowired
+    private SpanMetricReporter spanMetricReporter;
+     
+    @Autowired
+    private ZipkinProperties zipkinProperties;
+     
+    @Value("${spring.sleuth.web.skipPattern}")
+    private String skipPattern;
+    
+    @Value("${spring.zipkin.baseUrl}")
+    private String baseUrl;
+
+    @Bean
+    public ZipkinSpanReporter makeZipkinSpanReporter() {
+        return new ZipkinSpanReporter() {
+            private HttpZipkinSpanReporter delegate;
+    
+            @Override
+            public void report(Span span) {
+                if (delegate != null) delegate = new HttpZipkinSpanReporter(new RestTemplate(), 
+                    baseUrl, zipkinProperties.getFlushInterval(), spanMetricReporter);
+                if (!span.name.matches(skipPattern)) delegate.report(span);
+            }
+        };
+    }
 }
