@@ -1,4 +1,4 @@
-package com.thefans.ecommerce;
+package com.thefans.ecommerce.filter;
 
 import java.io.IOException;
 

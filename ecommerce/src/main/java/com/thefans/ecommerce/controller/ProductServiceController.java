@@ -7,7 +7,6 @@ import java.util.Collection;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.FileInputStream;
-import java.io.InputStream;
 import java.io.IOException;
 
 import org.springframework.http.HttpStatus;
@@ -86,14 +85,14 @@ public class ProductServiceController {
       //product.setId(id);
       //productRepo.put(id, product);
       ps.updateProduct(id, product);
-      return new ResponseEntity<String>("Product is updated successsfully", HttpStatus.OK);
+      return new ResponseEntity<String>("Product is updated successfully", HttpStatus.OK);
    }
 
    @RequestMapping(value = "/products/{id}", method = RequestMethod.DELETE)
    public ResponseEntity<String> delete(@PathVariable("id") String id) { 
       //productRepo.remove(id);
       ps.deleteProduct(id);
-      return new ResponseEntity<String>("Product is deleted successsfully", HttpStatus.OK);
+      return new ResponseEntity<String>("Product is deleted successfully", HttpStatus.OK);
    }
 
    // below code demonstrate how to consume RESTful APIs

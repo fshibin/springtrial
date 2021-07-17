@@ -14,14 +14,14 @@ public class KafkamsgApplication implements ApplicationRunner {
    private KafkaTemplate<String, String> kafkaTemplate;
 
    public void sendMessage(String msg) {
-      kafkaTemplate.send("tutorialspoint", msg);
+      kafkaTemplate.send("learn-spring-boot", msg);
    }
    public static void main(String[] args) {
       SpringApplication.run(KafkamsgApplication.class, args);
    }
-   @KafkaListener(topics = "tutorialspoint", groupId = "group-id")
+   @KafkaListener(topics = "learn-spring-boot", groupId = "sfan")
    public void listen(String message) {
-      System.out.println("Received Messasge in group - group-id: " + message);
+      System.out.println("Received Messasge in group - sfan: " + message);
    }
    @Override
    public void run(ApplicationArguments args) throws Exception {
